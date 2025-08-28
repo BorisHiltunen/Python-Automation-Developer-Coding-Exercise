@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+*/__pycache__/
+
+# Distribution / packaging
+*/env/
+
+# dotenv
+*/.env
+
+# Unit test / coverage reports
+*/.cache
+
+*files/
