@@ -45,9 +45,14 @@ pip install -r requirements.txt
   - After installing add the file to the app's files folder
 
 7. Run the code
-```
-python main.py
-```
+    - Normal run
+    ```
+    python main.py normal_mode
+    ```
+    - Performance mode run
+    ```
+    python main.py performance_mode
+    ```
 
 ## Application's structure
 ```GAP
