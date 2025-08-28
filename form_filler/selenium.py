@@ -21,24 +21,32 @@ class FormReader():
         start_button = self.driver.find_element(By.XPATH, "//*[text()='Start']")
         start_button.click()
 
-    def fill_form_fields(self, excel_row):
+    def fill_form_fields(self, excel_data, field_names, performance_mode) -> None:
         """Fills the form page's fields with the previously fetched excel data."""
-        field_names = {
-            "First Name": "labelFirstName",
-            "Last Name": "labelLastName",
-            "Company Name": "labelCompanyName",
-            "Role in Company": "labelRole",
-            "Address": "labelAddress",
-            "Email": "labelEmail",
-            "Phone Number": "labelPhone",
-        }
-        for key, value in excel_row.items():
-            label_name = field_names[key.strip()]
-            element = self.driver.find_element(By.XPATH, fr"//*[@ng-reflect-name='{label_name}']")
-            element.send_keys(value)
-            assert str(element.get_property("value")) == str(value)
+        if performance_mode:
+            self.fill_forms_fast(excel_data, field_names)
+        else:
+            self.fill_forms_normally(excel_data, field_names)
 
-        self.click_submit()
+    def fill_forms_fast(self, excel_data, field_names) -> None:
+        """Fills forms by using itertuples thus making the loop process more efficient."""
+        for excel_row in excel_data.itertuples():
+            for index in range(1, 8):
+                label_name = field_names[str(index)]
+                element = self.driver.find_element(By.XPATH, fr"//*[@ng-reflect-name='{label_name}']")
+                element.send_keys(excel_row[index])
+                assert str(element.get_property("value")) == str(excel_row[index])
+            self.click_submit()
+
+    def fill_forms_normally(self, excel_data, field_names) -> None:
+        """Fills forms by going through the excel rows and submits the data after."""
+        for _, excel_row in excel_data.iterrows():
+            for key, value in excel_row.items():
+                label_name = field_names[key.strip()]
+                element = self.driver.find_element(By.XPATH, fr"//*[@ng-reflect-name='{label_name}']")
+                element.send_keys(value)
+                assert str(element.get_property("value")) == str(value)
+            self.click_submit()
 
     def click_submit(self) -> None:
         """Clicks the 'Submit' button."""
