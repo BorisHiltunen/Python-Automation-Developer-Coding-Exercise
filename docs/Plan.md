@@ -14,10 +14,10 @@ Python Automation Developer - Coding Exercise
   - **Status:** Done
 
 - **Functionality for establishing connection to the rpa challenge page**
-  - **Status:** Not Done
+  - **Status:** Done
 
 - **Functionality for sending the previous challenge data to the rpa challenge page's input fields.**
-  - **Status:** Not Done
+  - **Status:** Done
 
 ## App structure
 - **Docs:** Contains all the necessary documentation except for the main readme.md
@@ -34,4 +34,5 @@ Python Automation Developer - Coding Exercise
 - **Pandas:** Will be used to read and possibly edit the challenge.xlsx excel's data
 - **Selenium:** Will be used to establish a connection to the form page and to fill the input fields with the previously fetched excel data 
 - **Pytest:** Will be used for testing
+
 
