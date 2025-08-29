@@ -81,3 +81,10 @@ pip install -r requirements.txt
     ```
     python -m pytest tests/<test_file>.py::<test_function>
     ```
+
+## key design or technical decisions.
+1. Flowcharts and plan.md were added to simulate a normal work project
+2. CLI flag
+    - The code is separated into normal run and performance run
+3. Headless mode
+    - The headless mode is only used when running the program with the performance mode flag
