@@ -17,7 +17,7 @@ def main() -> None:
 
     # Fetch data from excel
     excel_path = r"files/challenge.xlsx"
-    excel_reader = excel.ExcelReader(excel_path, performance_mode)
+    excel_reader = excel.ExcelReader(excel_path)
     excel_data = excel_reader.get_data()
 
     # Establish a connection to the form page and open it
