@@ -35,46 +35,12 @@ class FormReader():
 
     def fill_form_fields(self, excel_data) -> None:
         """Fills the form page's fields with the previously fetched excel data."""
-        if self.performance_mode:
-            self.fill_forms_faster(excel_data)
+        if not self.performance_mode:
+            self.fill_forms(excel_data)
         else:
-            self.fill_forms_normally(excel_data)
+            self.fill_forms_faster(excel_data)
 
-    def fill_forms_faster(self, excel_data) -> None:
-        """
-        Fills forms by using zip to loop through the dataframe
-        using css_selectors to find elements more efficiently.
-        """
-        d = excel_data
-        for f, l, c, r, a, e, p in zip(d['First Name'], d['Last Name '], d['Company Name'], d['Role in Company'], d['Address'], d['Email'], d['Phone Number']):
-            self.fill_fields(f, l, c, r, a, e, p)
-            self.click_submit()
-
-    def fill_fields(self, f, l, c, r, a, e, p) -> None:
-        """Fills fields with the fetched data."""
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelFirstName']"
-        ))).send_keys(f)
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelLastName']"
-        ))).send_keys(l)
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelCompanyName']"
-        ))).send_keys(c)
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelRole']"
-        ))).send_keys(r)
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelAddress']"
-        ))).send_keys(a)
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelEmail']"
-        ))).send_keys(e)
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelPhone']"
-        ))).send_keys(p)
-
-    def fill_forms_normally(self, excel_data) -> None:
+    def fill_forms(self, excel_data) -> None:
         """Fills forms by going through the excel rows and submits the data after."""
         field_names = self.get_field_names()
         for _, excel_row in excel_data.iterrows():
@@ -103,6 +69,43 @@ class FormReader():
         WebDriverWait(self.driver, 20).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '[value="Submit"]'
         ))).click()
+
+    def fill_forms_faster(self, excel_data) -> None:
+        """
+        Fills forms by using zip to loop through the dataframe
+        using css_selectors to find elements more efficiently.
+        """
+        d = excel_data
+        for f, l, c, r, a, e, p in zip(
+            d['First Name'], d['Last Name '], d['Company Name'],
+            d['Role in Company'], d['Address'], d['Email'], d['Phone Number']
+            ):
+            self.fill_fields(f, l, c, r, a, e, p)
+            self.click_submit()
+
+    def fill_fields(self, f, l, c, r, a, e, p) -> None:
+        """Fills fields with the fetched data."""
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelFirstName']"
+        ))).send_keys(f)
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelLastName']"
+        ))).send_keys(l)
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelCompanyName']"
+        ))).send_keys(c)
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelRole']"
+        ))).send_keys(r)
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelAddress']"
+        ))).send_keys(a)
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelEmail']"
+        ))).send_keys(e)
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelPhone']"
+        ))).send_keys(p)
     
     def check_result(self) -> None:
         """Prints the run's result."""

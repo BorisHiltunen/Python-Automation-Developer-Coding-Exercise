@@ -9,6 +9,7 @@ args = parser.parse_args()
 
 
 def main() -> None:
+    # Check if performance mode is necessary or not
     if args.performance_mode == "performance_mode":
         performance_mode = True
     else:
