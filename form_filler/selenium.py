@@ -50,7 +50,8 @@ class FormReader():
             self.fill_fields(f, l, c, r, a, e, p)
             self.click_submit()
 
-    def fill_fields(self, f, l, c, r, a, e, p):
+    def fill_fields(self, f, l, c, r, a, e, p) -> None:
+        """Fills fields with the fetched data."""
         WebDriverWait(self.driver, 20).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "[ng-reflect-name='labelFirstName']"
         ))).send_keys(f)
@@ -79,7 +80,6 @@ class FormReader():
         for _, excel_row in excel_data.iterrows():
             for key, value in excel_row.items():
                 label_name = field_names[key.strip()]
-                # breakpoint()
                 element = self.driver.find_element(By.XPATH, f"//*[@ng-reflect-name='{label_name}']")
                 element.send_keys(value)
                 assert str(element.get_property("value")) == str(value)

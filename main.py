@@ -33,7 +33,6 @@ def main() -> None:
     # Check how the run went
     form_reader.check_result()
 
-    # breakpoint()
     # Close the page after the process is done
     form_reader.close_form_page()
 
