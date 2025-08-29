@@ -40,7 +40,19 @@ virtualenv env
 ```
 pip install -r requirements.txt
 ```
-
+- If installing the requirements.txt fails you can also install dependencies one by one:
+    ```
+    pip install pandas
+    ```
+    ```
+    pip install openpyxl
+    ```
+    ```
+    pip install selenium
+    ```
+    ```
+    pip install pytest
+    ```
 6. Install the "challenge.xlsx" from the [RPA Challenge](https://rpachallenge.com/) page
   - After installing add the file to the app's files folder
 
